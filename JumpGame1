@@ -1,0 +1,21 @@
+public class JumpGame1 {
+    public boolean canJump(int[] A) {
+        if (A == null)
+            return false;
+        int i = 0;
+        while (i < A.length - 1) {
+            if (A[i] == 0)
+                return false;
+            int next = i + A[i];
+            if (next >= A.length -1)
+                return true;
+            for (int j = i + 1; j < i + A[i]; j++)
+                if (j + A[j] > next) {
+                    next = j;
+                    break;
+                }
+            i = next;
+        }
+        return true;
+    }
+}
