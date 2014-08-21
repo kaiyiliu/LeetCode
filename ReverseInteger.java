@@ -9,8 +9,6 @@ public class ReverseInteger {
         if (x < 0)
             isNeg = true;
         x = Math.abs(x);
-        rev += x % 10;
-        x /= 10;
         while (x > 0) {
             rev = rev * 10 + x % 10;
             x /= 10;
