@@ -12,8 +12,8 @@ public class 3Sum {
         int j = high + 1;
         int v = a[low];
         while (true) {
-            while (a[++i] < v && i < high) {}
-            while (a[--j] > v) {}
+            while (a[++i] <= v && i < high) {}
+            while (a[--j] >= v && j > low) {}
             if (i >= j)
                 break;
             swap(a, i, j);
@@ -30,15 +30,43 @@ public class 3Sum {
         a[j] = temp;
     }
     
+    public int binarySearch(int[] num, int target, int low, int high) {
+        if (low > high)
+            return -1;
+        int mid = (high - low) / 2 + low;
+        if (target < num[mid])
+            return binarySearch(num, target, low, mid - 1);
+        if (target > num[mid])
+            return binarySearch(num, target, mid + 1, high);
+        return mid;
+    }
+    
     public List<List<Integer>> threeSum(int[] num) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
+        HashSet<List<Integer>> hs = new HashSet<List<Integer>>();
         if (num == null || num.length < 3)
             return result;
         int i = 0;
         int j = num.length - 1;
         quickSort(num, i, j);
-        while (num[i] <= 0 && num[j] >= 0 && j - i >= 2) {
-            if (binarySearch(num, i + 1, j - 1))
+        // if (num.length > 5) {
+        //     for (int n : num)
+        //     System.out.print(n + ", ");
+        // }
+        int p = 0;
+        if (num[num.length - 1] < 0)
+            return result;
+        for (; i < num.length && num[i] <= 0; i++, j = num.length - 1) {
+            for (; j >= 0 && num[j] >=0; j--) {
+                int mid = binarySearch(num, -num[i] - num[j], i + 1, j - 1);
+                // if (num.length > 5 && p++ <= 12)
+                //     System.out.print(i + ", " + mid + ", " + j + " || ");
+                if (mid != -1)
+                    hs.add(Arrays.asList(num[i], num[mid], num[j]));
+            }
         }
+        for (List<Integer> element : hs)
+            result.add(element);
+        return result;
     }
 }
