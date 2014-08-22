@@ -1,4 +1,4 @@
-public class 3Sum {
+public class Solution {
     public void quickSort(int[] a, int low, int high) {
         if (low >= high)
             return;
@@ -49,24 +49,22 @@ public class 3Sum {
         int i = 0;
         int j = num.length - 1;
         quickSort(num, i, j);
-        // if (num.length > 5) {
-        //     for (int n : num)
-        //     System.out.print(n + ", ");
-        // }
-        int p = 0;
         if (num[num.length - 1] < 0)
             return result;
         for (; i < num.length && num[i] <= 0; i++, j = num.length - 1) {
+            if (i != 0 && num[i] == num[i - 1])
+                continue;
             for (; j >= 0 && num[j] >=0; j--) {
+                if (j != num.length - 1 && num[j] == num[j + 1])
+                    continue;
                 int mid = binarySearch(num, -num[i] - num[j], i + 1, j - 1);
-                // if (num.length > 5 && p++ <= 12)
-                //     System.out.print(i + ", " + mid + ", " + j + " || ");
                 if (mid != -1)
-                    hs.add(Arrays.asList(num[i], num[mid], num[j]));
+                    // hs.add(Arrays.asList(num[i], num[mid], num[j]));
+                    result.add(Arrays.asList(num[i], num[mid], num[j]));
             }
         }
-        for (List<Integer> element : hs)
-            result.add(element);
+        // for (List<Integer> element : hs)
+        //     result.add(element);
         return result;
     }
 }
