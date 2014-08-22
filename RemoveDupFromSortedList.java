@@ -10,6 +10,8 @@
  * }
  */
 public class RemoveDupFromSortedList {
+    // notice to ensure that pointer is not null when moving ahead
+    
     public ListNode deleteDuplicates(ListNode head) {
         if (head == null)
             return null;
