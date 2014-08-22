@@ -43,7 +43,7 @@ public class Solution {
     
     public List<List<Integer>> threeSum(int[] num) {
         List<List<Integer>> result = new LinkedList<List<Integer>>();
-        HashSet<List<Integer>> hs = new HashSet<List<Integer>>();
+        //HashSet<List<Integer>> hs = new HashSet<List<Integer>>();
         if (num == null || num.length < 3)
             return result;
         int i = 0;
