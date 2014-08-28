@@ -11,6 +11,8 @@ public class OrderTraversal2 {
     // use queue to do BFS and a stack to store the node along the BFS.
     // After each level BFS, insert a dummy node to deliminate the level
     
+    // You can use ArrayList to add in the front
+    
     private void search(LinkedList<TreeNode> q, Stack<Integer> s) {
         while (q.size() > 1) {
             TreeNode node = q.poll();
