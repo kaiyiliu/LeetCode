@@ -1,0 +1,31 @@
+public class ValidPalindrome.java {
+    public boolean isPalindrome(String s) {
+        if (s == null)
+            return false;
+        int i = 0;
+        int j = s.length() - 1;
+        while (i < j) {
+            String iStr = ("" + s.charAt(i)).toLowerCase();
+            while (!iStr.matches("[A-Za-z0-9]")) {
+                i++;
+                if (i >= j)
+                    break;
+                iStr = ("" + s.charAt(i)).toLowerCase();
+            }
+            String jStr = ("" + s.charAt(j)).toLowerCase();
+            while (!jStr.matches("[A-Za-z0-9]")) {
+                j--;
+                if (i >= j)
+                    break;
+                jStr = ("" + s.charAt(j)).toLowerCase();
+            }
+            if (!iStr.equals(jStr))
+                break;
+            i++;
+            j--;
+        }
+        if (i < j)
+            return false;
+        return true;
+    }
+}
