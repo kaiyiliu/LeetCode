@@ -9,7 +9,7 @@ public class WordBreak {
         boolean[] A = new boolean[s.length() + 1];
         A[0] = true;
         
-        for (int i = 0; i <= s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (!A[i])
                 continue;
             for (String e : dict) {
@@ -19,6 +19,8 @@ public class WordBreak {
                 if (s.substring(i, end).equals(e))
                     A[end] = true;
             }
+            if (A[s.length()] == true)
+                break;
         }
         return A[s.length()];
     }
