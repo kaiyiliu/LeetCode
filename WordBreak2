@@ -1,0 +1,51 @@
+public class WordBreak2 {
+    public List<String> wordBreak(String s, Set<String> dict) {
+        if (s == null || s.length() == 0)
+            return new LinkedList<String>();
+            
+        boolean[] check = new boolean[s.length() + 1];
+        check[0] = true;
+        
+        for (int i = 0; i < s.length(); i++) {
+            if (!check[i])
+                continue;
+            for (String e : dict) {
+                int end = i + e.length();
+                if (end > s.length() || check[end] == true)
+                    continue;
+                if (s.substring(i, end).equals(e))
+                    check[end] = true;
+            }
+            if (check[s.length()] == true)
+                break;
+        }
+        if (!check[s.length()])
+            return new LinkedList<String>();
+        
+        List[] A = new LinkedList[s.length() + 1];
+        
+        // initialize
+        A[0] = new LinkedList<String>();
+        A[s.length()] = new LinkedList<String>();
+        
+        for (int i = 0; i < A.length - 1; i++) {
+            if (A[i] == null)
+                continue;
+            for (String e : dict) {
+                int end = i + e.length();
+                if (end >= A.length)
+                    continue;
+                if (s.substring(i, end).equals(e)) {
+                    if (A[end] == null)
+                        A[end] = new LinkedList<String>();
+                    if (i == 0)
+                        A[end].add(e);
+                    else
+                        for (Object str : A[i])
+                            A[end].add((String) str + " " + e);
+                }
+            }
+        }
+        return A[s.length()];
+    }
+}
