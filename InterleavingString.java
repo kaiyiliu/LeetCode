@@ -8,11 +8,11 @@ public class InterleavingString {
         if (len1 + len2 != len3)
             return false;
         boolean[][] A = new boolean[len1 + 1][len2 + 1];
-        A[0][0] = len3 == 0;
+        A[0][0] = true;
         for (int j = 1; j <= len2; j++)
-            A[0][j] = s2.charAt(j - 1) == s3.charAt(j - 1);
+            A[0][j] = A[0][j - 1] && s2.charAt(j - 1) ==  s3.charAt(j - 1);
         for (int i = 1; i <= len1; i++)
-            A[i][0] = s1.charAt(i - 1) == s3.charAt(i - 1);
+            A[i][0] = A[i - 1][0] && s1.charAt(i - 1) == s3.charAt(i - 1);
         for (int i = 1; i <= len1; i++)
             for (int j = 1; j <= len2; j++)
                 A[i][j] = (A[i - 1][j] && s1.charAt(i - 1) == s3.charAt(i + j - 1))
