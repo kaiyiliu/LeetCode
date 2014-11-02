@@ -8,24 +8,31 @@
  * }
  */
 public class Flatten {
-    public TreeNode getFlat(TreeNode root) {
+    public void flatten(TreeNode root) {
         if (root == null)
-            return null;;
-        TreeNode lRoot = getFlat(root.left);
-        TreeNode rRoot = getFlat(root.right);
-        if (lRoot == null) {
-            root.right = rRoot;
-        } else {
-            root.right = lRoot;
-            while (lRoot.right != null)
-                lRoot = lRoot.right;
-            lRoot.right = rRoot;
-        }
-        root.left = null;
-        return root;
+            return;
+        helper(root);
     }
     
-    public void flatten(TreeNode root) {
-        root = getFlat(root);
+    private TreeNode helper(TreeNode node) {
+        if (node == null)
+            return null;
+        if (node.left == null && node.right == null)
+            return node;
+        
+        TreeNode leftEnd = helper(node.left);
+        TreeNode rightEnd = helper(node.right);
+    
+        if (leftEnd != null) {
+            TreeNode right = node.right;
+            node.right = node.left;
+            leftEnd.right = right;
+            node.left = null;
+        }
+        
+        if (rightEnd == null)
+            rightEnd = leftEnd;
+            
+        return rightEnd;
     }
 }
